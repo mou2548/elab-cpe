@@ -1,0 +1,5 @@
+a = int(input("A : "))
+b = int(input("B : "))
+x = int(input("X : "))
+wait = int((x - ((x / b) * a)) / a * 60 * 60)
+print("Wait : " + str(wait) + " sec")
