@@ -157,6 +157,14 @@ class myCards():
                 if card.get_name() == 'A' and self.score + 10 <= 21:
                     self.ace += 1
                     self.score += 10
+    
+    def __str__(self):
+        txt = f"{self.name:>9}: "
+        for card in self.cards:
+            txt += str(card) + " "
+        indent = 18 - 3 * self.cards_total
+        txt += f"{'->':>{indent}} {self.score}"
+        return txt
 
     def draw(self, card=Deck().get_card()):
         self.cards.append(card)
@@ -174,14 +182,6 @@ class myCards():
             self.busted = True
         if self.cards_total == 5 and self.score <= 21 or self.score == 21 and self.cards_total == 2:
             self.blackjack = True
-
-
-def printCards(player, cards, score):
-    print(f"{player:>9}:", end=" ")
-    for card in cards:
-        print(card,end=" ")
-    indent = 18 - 3 * len(cards)
-    print(f"{'->':>{indent}} {score}")
 
 def checkResult(p1, p2):
     if p1.busted and p2.busted or p1.blackjack and p2.blackjack:
@@ -217,7 +217,7 @@ def play(player1='Computer', player2='Player', d=None, RENDER=False):
         #d = 'A♦ A♥ 3♥ 4♣ 4♥ 7♣ 5♣ 6♦ A♠'
         deck = createVirtualDeck(d)
     #----------------------
-    print(deck) # for DEBUG
+    # print(deck) # for DEBUG
     #----------------------
     ###-------------- student code begins here --------------###
     start_cards = 2
@@ -231,21 +231,21 @@ def play(player1='Computer', player2='Player', d=None, RENDER=False):
         p2.draw(deck.get_card())
 
     hidden = myCards(name=player1, cards=p1.cards, hidden=True)
-    printCards(player1, hidden.cards, hidden.score)
-    printCards(player2, p2.cards, p2.score)
+    print(hidden)
+    print(p2)
 
     while player_draw == 'Y' and p2.score < 21 and p2.cards_total < 5:
         player_draw = input("Draw another card (y/n): ").upper()
         if player_draw == 'Y':
             p2.draw(deck.get_card())
-            printCards(player2, p2.cards, p2.score)
+            print(p2)
     print('+++++++++++++++++++++++++++++++++')
 
     while p1ShouldDraw(p1, p2):
         p1.draw(deck.get_card())
 
-    printCards(player1, p1.cards, p1.score)
-    printCards(player2, p2.cards, p2.score)
+    print(p1)
+    print(p2)
     print("++++++++++++++++++++++++++++++++++++++++++++++++++")
     print(checkResult(p1, p2))
     print("++++++++++++++++++++++++++++++++++++++++++++++++++")
