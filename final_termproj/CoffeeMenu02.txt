@@ -1,0 +1,6 @@
+
+Americano,40,45,0 
+Cappuccino,40,45,50 
+Latte,140, 155,170 
+Mocha,145,160,175
+Espresso,35,0,0
